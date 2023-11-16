@@ -186,7 +186,7 @@ export default function Cadastro( ) {
                 transform: 'translate(-50%, -50%)',
                 width: 500,
                 height: 500,
-                bgcolor: 'background.paper',
+                bgcolor: 'background.navBar',
                 border: '2px solid #000',
                 boxShadow: 24,
                 p: 4,
@@ -214,7 +214,7 @@ export default function Cadastro( ) {
 
                     {/* NOME INPUT */}
                     <FormControl error={formComponents.nome.error} required={true} sx={{mb: 3}}> 
-                        <InputLabel htmlFor='input-nome'>Nome:</InputLabel>
+                        <InputLabel htmlFor='input-nome' sx={{color: 'font.main'}}>Nome:</InputLabel>
                         <Input 
                             onChange={handleInputs}
                             onBlur={handleBlur}
@@ -226,7 +226,7 @@ export default function Cadastro( ) {
 
                     {/* EMAIL INPUT */}
                     <FormControl error={formComponents.email.error} required={true} sx={{mb: 3}}>
-                        <InputLabel htmlFor='input-email'>Email:</InputLabel>
+                        <InputLabel htmlFor='input-email' sx={{color: 'font.main'}}>Email:</InputLabel>
                         <Input
                             onChange={handleInputs}
                             onBlur={handleBlur} 
@@ -238,7 +238,7 @@ export default function Cadastro( ) {
 
                     {/* SENHA INPUT */}
                     <FormControl error={formComponents.senha.error} required={true} sx={{mb: 3}}>
-                        <InputLabel htmlFor='input-senha'>Senha:</InputLabel>
+                        <InputLabel htmlFor='input-senha' sx={{color: 'font.main'}}>Senha:</InputLabel>
                         <Input 
                             type="password"
                             onChange={handleInputs}
@@ -250,20 +250,24 @@ export default function Cadastro( ) {
                     </FormControl>
                     
                     {/* BOTAO SUBMIT */}
-                    <Button onClick={handleSubmit} variant="outlined" sx={{my: 0.2}}>
-                        Submit
+                    <Button onClick={handleSubmit} variant="contained" sx={{my: 0.2}}>
+                        Cadastrar
                     </Button>
 
                     {/* BOTAO VOLTAR */}
                     <Button onClick={() => setOpcao('')}
-                        variant="outlined" sx={{my: 0.2, color: `secondary.main`, borderColor: `secondary.main`, 
-                        '&:hover': {
-                            backgroundColor: 'secondary.veryLightMain',
-                            borderColor: 'white',
-                            boxShadow: 'none',
-                            color: `white`,
-                            opacity: `75%`
-                    }}}>
+                        variant="contained" 
+                        sx={{
+                            my: 0.2, 
+                            backgroundColor: 'secondary.main',
+                            borderColor: `secondary.main`, 
+                            '&:hover': {
+                                backgroundColor: 'secondary.veryLightMain',
+                                borderColor: 'white',
+                                color: `white`,
+                                opacity: `75%`
+                            }
+                    }}>
                         Voltar
                 </Button>
 

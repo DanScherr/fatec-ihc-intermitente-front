@@ -3,7 +3,6 @@ import AuthContext from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { validaEmail, validaSenha } from "../../bin/ValidaInputs";
 
-
 export default function Login( ) {
     const {
         setOpcao,
@@ -151,8 +150,8 @@ export default function Login( ) {
                 transform: 'translate(-50%, -50%)',
                 width: 500,
                 height: 500,
-                bgcolor: 'background.paper',
-                border: '2px solid #000',
+                bgcolor: 'background.navBar',
+                border: '1px solid #000',
                 boxShadow: 24,
                 p: 4,
                 borderRadius: 40,
@@ -168,19 +167,19 @@ export default function Login( ) {
 
                 {/* EMAIL INPUT */}
                 <FormControl error={formComponents.email.error} required={true} sx={{mb: 3}}> 
-                    <InputLabel htmlFor='input-email'>Email:</InputLabel>
-                    <Input 
+                    <InputLabel htmlFor='input-email' sx={{color: 'font.main'}}>Email:</InputLabel>
+                    <Input
                         onChange={handleInputs}
                         onBlur={handleBlur}
                         id="input-email" 
-                        aria-describedby="input-your-name" 
+                        aria-describedby="input-your-name"
                     />
                     <FormHelperText id='my-helper-input-email'>{formComponents.email.helperText}</FormHelperText>
                 </FormControl>
 
                 {/* SENHA INPUT */}
                 <FormControl error={formComponents.senha.error} required={true} sx={{mb: 3}}> 
-                    <InputLabel htmlFor='input-senha'>Senha:</InputLabel>
+                    <InputLabel htmlFor='input-senha' sx={{color: 'font.main'}}>Senha:</InputLabel>
                     <Input 
                         type="password"
                         onChange={handleInputs}
@@ -192,20 +191,24 @@ export default function Login( ) {
                 </FormControl>
 
                 {/* BOTAO SUBMIT */}
-                <Button onClick={handleSubmit} variant="outlined" sx={{my: 0.2}}>
-                    Submit
+                <Button onClick={handleSubmit} variant="contained" sx={{my: 0.2}}>
+                    Logar
                 </Button>
                 {/* BOTAO VOLTAR */}
-                <Button onClick={() => setOpcao('')}
-                    variant="outlined" sx={{my: 0.2, color: `secondary.main`, borderColor: `secondary.main`, 
-                    '&:hover': {
-                        backgroundColor: 'secondary.veryLightMain',
-                        borderColor: 'white',
-                        boxShadow: 'none',
-                        color: `white`,
-                        opacity: `75%`
-                }}}>
-                    Voltar
+                <Button onClick={() => setOpcao('cadastro')}
+                    variant="contained" 
+                    sx={{
+                        my: 0.2,
+                        backgroundColor: 'secondary.main',
+                        borderColor: `secondary.main`,
+                        '&:hover': {
+                            backgroundColor: 'secondary.veryLightMain',
+                            borderColor: 'white',
+                            color: `white`,
+                            opacity: `75%`
+                        }
+                    }}>
+                    Cadastrar
                 </Button>
 
                 <Typography 
