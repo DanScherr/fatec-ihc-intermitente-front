@@ -1,8 +1,11 @@
-import { Box, Button, FormControl, FormHelperText, Input, InputLabel, Stack, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Stack, Typography } from "@mui/material";
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { validaNome, validaEmail, validaSenha } from "../../bin/ValidaInputs";
+import Empresa from './components/Empresa'
+import Colaborador from './components/Colaborador'
+import Compartilhado from "./components/Compartilhado";
 
 export default function Cadastro( ) {
     // VARIAVEIS DE CONTEXTO GLOBAL DE AUTENTICACAO
@@ -11,6 +14,8 @@ export default function Cadastro( ) {
         cadastro,
         RealizaCadastro,
     } = useContext(AuthContext);
+
+    const [ radioButton, setRadio ] = useState(true); // true = colaborador, false = empresa;
 
     // VARIAVEIS DO FORMULARIO
     const [formComponents, setFormComponents] = useState({
@@ -32,7 +37,40 @@ export default function Cadastro( ) {
             helperText: '',
             color: 'primary'
         },
+        documento: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+        endereco: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+        telefone: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
     });
+
+    // LIDA COM O SUBMIT
+    const [tentouCadastrar, setTentouCadastrar] = useState(false)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (!formComponents.nome.error && !formComponents.email.error && !formComponents.senha.error ){
+            RealizaCadastro(
+                formComponents.nome.value,
+                formComponents.email.value,
+                formComponents.senha.value
+            );
+            setTentouCadastrar(true);
+        }
+    };
 
     // LIDA COM OS INPUTS
     const handleInputs = (e) => {
@@ -70,28 +108,45 @@ export default function Cadastro( ) {
                     }
                 });
                 break;
+
+            case 'input-documento':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        documento: {
+                            value: e.target.value
+                        }
+                    }
+                });
+                break;
+
+            case 'input-endereco':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        endereco: {
+                            value: e.target.value
+                        }
+                    }
+                });
+                break;
+
+            case 'input-telefone':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        telefone: {
+                            value: e.target.value
+                        }
+                    }
+                });
+                break;
         
             default:
                 break;
         }
     };
 
-    // LIDA COM O SUBMIT
-    const [tentouCadastrar, setTentouCadastrar] = useState(false)
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (!formComponents.nome.error && !formComponents.email.error && !formComponents.senha.error ){
-            RealizaCadastro(
-                formComponents.nome.value,
-                formComponents.email.value,
-                formComponents.senha.value
-            );
-            setTentouCadastrar(true);
-        }
-    };
-
-    
     // LIDA COM O BLUR
     const handleBlur = (e) => {
         e.preventDefault();
@@ -150,23 +205,65 @@ export default function Cadastro( ) {
                         });
                     }
                     break;
+
+                case 'input-documento':
+                    let documentoError = validaSenha(e.target.value);
+                    console.log(e.target.value);
+                    if (senhaError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                documento: {
+                                    error: true,
+                                    helperText: senhaError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+
+                case 'input-endereco':
+                    let enderecoError = validaSenha(e.target.value);
+                    console.log(e.target.value);
+                    if (senhaError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                endereco: {
+                                    error: true,
+                                    helperText: senhaError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+
+                case 'input-telefone':
+                    let telefoneError = validaSenha(e.target.value);
+                    console.log(e.target.value);
+                    if (senhaError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                telefone: {
+                                    error: true,
+                                    helperText: senhaError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
         
             default:
                 break;
         };
     };
-
-
-    // EFEITO QUE RODA NO MOMENTO QUE AS VARIAVEIS MUDAM
-    useEffect(() => {
-        console.log('Input de nome: ', formComponents.nome.value)
-    }, [formComponents.nome.value])
-    useEffect(() => {
-        console.log('Input de email: ', formComponents.email.value)
-    }, [formComponents.email.value])
-    useEffect(() => {
-        console.log('Input de senha: ', formComponents.senha.value)
-    }, [formComponents.senha.value])
 
     // GERA MSG SE LOGIN FOR SUCESSO OU FALHA
     const [msgCadastro, setMsgCadastro] = useState(false);
@@ -176,6 +273,10 @@ export default function Cadastro( ) {
             setMsgCadastro(true);
     }, [cadastro]);
 
+    useEffect(() => {
+        console.log('Radio button:', radioButton)
+    }, [radioButton]);
+
     return (
         <Box
             component='form'
@@ -184,8 +285,8 @@ export default function Cadastro( ) {
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: 500,
-                height: 500,
+                width: 900,
+                height: 700,
                 bgcolor: 'background.navBar',
                 border: '2px solid #000',
                 boxShadow: 24,
@@ -212,65 +313,75 @@ export default function Cadastro( ) {
                         CADASTRO
                     </Typography>
 
-                    {/* NOME INPUT */}
-                    <FormControl error={formComponents.nome.error} required={true} sx={{mb: 3}}> 
-                        <InputLabel htmlFor='input-nome' sx={{color: 'font.main'}}>Nome:</InputLabel>
-                        <Input 
-                            onChange={handleInputs}
-                            onBlur={handleBlur}
-                            id="input-nome" 
-                            aria-describedby="input-your-name" 
-                        />
-                        <FormHelperText id='my-helper-input-nome'>{formComponents.nome.helperText}</FormHelperText>
+                    {/* RADIO BUTTON */}
+                    <FormControl required={true} sx={{mb: 3}}> 
+                        <FormLabel htmlFor='input-nome' sx={{color: 'font.main'}}>Tipo de Cadastro:</FormLabel>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="Colaborador"
+                            name="radio-buttons-group"
+                            sx={{flexDirection: 'row'}}
+                        >
+                            <FormControlLabel onClick={() => setRadio(true)} sx={{display: 'inline'}} value="Colaborador" control={<Radio />} label="Colaborador" />
+                            <FormControlLabel onClick={() => setRadio(false)} sx={{display: 'inline'}} value="Empresa" control={<Radio />} label="Empresa" />
+                        </RadioGroup>
                     </FormControl>
 
-                    {/* EMAIL INPUT */}
-                    <FormControl error={formComponents.email.error} required={true} sx={{mb: 3}}>
-                        <InputLabel htmlFor='input-email' sx={{color: 'font.main'}}>Email:</InputLabel>
-                        <Input
-                            onChange={handleInputs}
-                            onBlur={handleBlur} 
-                            id="input-email" 
-                            aria-describedby="input-your-name" 
-                        />
-                        <FormHelperText id='my-helper-input-email'>{formComponents.email.helperText}</FormHelperText>
-                    </FormControl>
+                    {/* FORM COMPARTILHADO */}
+                    <Compartilhado 
+                        tentouCadastrar={tentouCadastrar} 
+                        formComponents={formComponents} 
+                        handleBlur={handleBlur}
+                        handleInputs={handleInputs}
+                    />
 
-                    {/* SENHA INPUT */}
-                    <FormControl error={formComponents.senha.error} required={true} sx={{mb: 3}}>
-                        <InputLabel htmlFor='input-senha' sx={{color: 'font.main'}}>Senha:</InputLabel>
-                        <Input 
-                            type="password"
-                            onChange={handleInputs}
-                            onBlur={handleBlur}
-                            id="input-senha" 
-                            aria-describedby="input-your-name" 
+                    {
+                        radioButton && <Colaborador 
+                            tentouCadastrar={tentouCadastrar} 
+                            formComponents={formComponents} 
+                            handleBlur={handleBlur}
+                            handleInputs={handleInputs}
                         />
-                        <FormHelperText id='my-helper-input-senha'>{formComponents.senha.helperText}</FormHelperText>
-                    </FormControl>
+                    }
+                    {
+                        !radioButton && <Empresa 
+                            tentouCadastrar={tentouCadastrar} 
+                            formComponents={formComponents} 
+                            handleBlur={handleBlur}
+                            handleInputs={handleInputs}
+                        />
+                    }
                     
-                    {/* BOTAO SUBMIT */}
-                    <Button onClick={handleSubmit} variant="contained" sx={{my: 0.2}}>
-                        Cadastrar
-                    </Button>
+                    <Grid container justifyContent={'center'} alignItems={'center'} direction={'column'}
+                        sx={{position: 'fixed', bottom: 20, right: 20}}
+                    >
+                        {/* BOTAO SUBMIT */}
+                        <Grid item xs={3}>
+                            <Button onClick={handleSubmit} variant="contained" sx={{mt: 4, mx: 'auto'}}>
+                                Cadastrar
+                            </Button>
+                        </Grid>
 
-                    {/* BOTAO VOLTAR */}
-                    <Button onClick={() => setOpcao('')}
-                        variant="contained" 
-                        sx={{
-                            my: 0.2, 
-                            backgroundColor: 'secondary.main',
-                            borderColor: `secondary.main`, 
-                            '&:hover': {
-                                backgroundColor: 'secondary.veryLightMain',
-                                borderColor: 'white',
-                                color: `white`,
-                                opacity: `75%`
-                            }
-                    }}>
-                        Voltar
-                </Button>
-
+                        {/* BOTAO VOLTAR */}
+                        <Grid item xs={3}>
+                            <Button onClick={() => setOpcao('')}
+                                variant="contained" 
+                                sx={{
+                                    mt: 2, 
+                                    backgroundColor: 'secondary.main',
+                                    borderColor: `secondary.main`, 
+                                    '&:hover': {
+                                        backgroundColor: 'secondary.veryLightMain',
+                                        borderColor: 'white',
+                                        color: `white`,
+                                        opacity: `75%`
+                                    }
+                            }}>
+                                Voltar
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    
                 <Typography 
                     sx={{
                         display: msgCadastro ? 'block' : 'none',

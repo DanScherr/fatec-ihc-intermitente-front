@@ -9,14 +9,14 @@ export const darkTheme = createTheme({
     palette: {
         mode: 'dark',
         background: {
-            navBar: grey[300], //#212121
+            navBar: '#D9D9D9', //#212121
             footBox: grey[400], //#424242
-            card: grey[200],
+            card: grey[500],
             accordionHeader: grey[300]
         },
         primary: {
-            main: color1['600'], //#d500f9
-            lightMain: color1['A200'], //#eeff41
+            main: color1[200], //#d500f9
+            lightMain: color1[500], //#eeff41
             veryLightMain: color1['A100'], //#f4ff81
             lightestMain: color1['50'], //#f9fbe7
         },

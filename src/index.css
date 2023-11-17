@@ -20,7 +20,7 @@ code {
 
 /* ===== MUI ALTERACOES ===== */
 .MuiInput-root:before, :not(.Mui-error) {
-  border-bottom-color: #424242 !important;
+  border-color: #424242 !important;
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

@@ -1,27 +1,16 @@
 //@ts-check
 /** State */
-import React, { useContext } from 'react';
+import React from 'react';
 /** MUI */
 import { 
     Box,
+    Button,
     Grid,
-    Paper
 } from '@mui/material';
-import MultiplayerContext from '../../../../context/MultiplayerContext';
-import TimerIcon from '@mui/icons-material/Timer';
 import './Footer.css'
 
 
 export default function SharedLayoutFooter( ) {
-    const {
-        stopWatch,
-        myTurn,
-        myChosenTheme,
-        vsChosenTheme,
-        vencedorState,
-        empateState,
-        loserState
-    } = useContext(MultiplayerContext);
 
     return(
         <>  
@@ -35,34 +24,17 @@ export default function SharedLayoutFooter( ) {
             }}
             >
                 <Grid container justifyContent={'center'} alignContent={'center'}>
-                    <Grid item xs={0.15} alignContent={'flex-end'}>
-                        &#32;
+
+                    <Grid item xs={1} alignContent={'flex-end'}>
+                        <Button>Botao 1</Button>
                     </Grid>
-                    <Grid item xs={0.3} alignContent={'flex-end'}>
-                        <TimerIcon className={myTurn 
-                        &&(myChosenTheme !== 'grey' && myChosenTheme !== '')&&vsChosenTheme!==''
-                        &&!vencedorState&&!empateState&&!loserState
-                        ? 'blink' : ''} sx={{mt: 1, display: {xs: 'none', md: 'none', lg: 'flex'}}}
-                        />
+                    <Grid item xs={1}>
+                        <Button>Botao 2</Button>
                     </Grid>
-                    <Grid item xs={0.9}>
-                        <Paper sx={{
-                            display: 'inline-block', width: '100px',
-                            height: '35px', lineHeight: '35px',
-                            mt: '1px',
-                            textAlign: 'center', fontSize: '18px'
-                        }}> {stopWatch} </Paper>
+                    <Grid item xs={1} alignContent={'flex-end'}>
+                       <Button>Botao 3</Button>
                     </Grid>
-                    <Grid item xs={0.001} alignContent={'flex-end'}>
-                        &#32;
-                    </Grid>
-                    <Grid item xs={0.3} alignContent={'flex-end'}>
-                        <TimerIcon className={myTurn 
-                        &&(myChosenTheme !== 'grey' && myChosenTheme !== '')&&vsChosenTheme!==''
-                        &&!vencedorState&&!empateState&&!loserState
-                        ? 'blink' : ''} sx={{mt: 1, display: {xs: 'none', md: 'none', lg: 'flex'}}}
-                        />
-                    </Grid>
+
                 </Grid>
             </Box>
         </>

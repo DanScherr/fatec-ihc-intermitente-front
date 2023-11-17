@@ -1,0 +1,84 @@
+#CalendarMain .MuiPickersLayout-root {
+    background-color: #D9D9D9;
+    color: #424242;
+    height: 100%;
+    width: 80%;
+    margin: 'auto';
+}
+
+#CalendarMain span {
+    color: #424242;
+}
+
+#CalendarMain button {
+    color: #424242;
+}
+
+#CalendarMain button.MuiPickersDay-dayOutsideMonth {
+    color: #b4b1b1;
+}
+
+/* CONTEUDO CALENDARIO */
+.MuiDateCalendar-root {
+    min-height: 700px;
+    min-width: 700px;
+}
+
+/* SCROLL AREA */
+#CalendarMain .MuiPickersSlideTransition-root {
+    min-height: 700px;
+    min-width: 700px;
+}
+
+/* ROW */
+#CalendarMain .MuiDayCalendar-weekContainer {
+    height: 100px;
+    justify-content: space-evenly !important;
+    background-color: #f5f5f5;
+}
+
+.MuiDayCalendar-header {
+    justify-content: space-around !important;
+}
+
+.MuiDayCalendar-weekContainer {
+    
+}
+
+/* BOTAO */
+#CalendarMain button {
+    height: 60px;
+    width: 60px;
+    margin: auto;
+}
+
+#CalendarMain button {
+    font-size: 15px;
+}
+
+/* ESTILIZANDO BACKGROUND */
+
+#CalendarMain .MuiPickersCalendarHeader-root {
+    background-color: #f5f5f5;
+}
+
+
+#CalendarMain .MuiDayCalendar-header {
+    background-color: #f5f5f5;
+}
+
+#CalendarMain .MuiDayCalendar-header span {
+    background-color: #b2dfdb;
+    font-size: large;
+}
+
+#CalendarMain svg {
+    color: #009688;
+}
+
+/* BOTOES DO FIM */
+#CalendarMain .MuiPickersLayout-actionBar button {
+    color: #009688 ;
+    border: 1px solid #009688 !important;
+    width: 100px;
+}

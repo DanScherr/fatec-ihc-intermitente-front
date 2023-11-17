@@ -1,8 +1,0 @@
-.MonetizacaoArrayAccordion{
-    border-radius: 40px !important;
-    background-color: #777777 !important;
-}
-
-.MonetizacaoArrayAccordion::before{
-    display: none;
-}

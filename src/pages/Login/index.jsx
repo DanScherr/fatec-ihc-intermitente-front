@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormHelperText, Input, InputLabel, Stack, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormHelperText, Grid, Input, InputLabel, Stack, Typography } from "@mui/material";
 import AuthContext from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { validaEmail, validaSenha } from "../../bin/ValidaInputs";
@@ -190,26 +190,38 @@ export default function Login( ) {
                     <FormHelperText id='my-helper-input-senha'>{formComponents.senha.helperText}</FormHelperText>
                 </FormControl>
 
-                {/* BOTAO SUBMIT */}
-                <Button onClick={handleSubmit} variant="contained" sx={{my: 0.2}}>
-                    Logar
-                </Button>
-                {/* BOTAO VOLTAR */}
-                <Button onClick={() => setOpcao('cadastro')}
-                    variant="contained" 
-                    sx={{
-                        my: 0.2,
-                        backgroundColor: 'secondary.main',
-                        borderColor: `secondary.main`,
-                        '&:hover': {
-                            backgroundColor: 'secondary.veryLightMain',
-                            borderColor: 'white',
-                            color: `white`,
-                            opacity: `75%`
-                        }
-                    }}>
-                    Cadastrar
-                </Button>
+
+                <Grid container justifyContent={'center'} alignItems={'center'} direction={'column'}
+                    sx={{position: 'fixed', bottom: 20, right: 20}}
+                >
+                    {/* BOTAO SUBMIT */}
+                    <Grid item xs={3}>
+                        {/* BOTAO SUBMIT */}
+                        <Button onClick={handleSubmit} variant="contained" sx={{mt: 3}}>
+                            Logar
+                        </Button>
+                    </Grid>
+
+                    {/* BOTAO VOLTAR */}
+                    <Grid item xs={3}>
+                        {/* BOTAO VOLTAR */}
+                        <Button onClick={() => setOpcao('cadastro')}
+                            variant="contained" 
+                            sx={{
+                                my: 1,
+                                backgroundColor: 'secondary.main',
+                                borderColor: `secondary.main`,
+                                '&:hover': {
+                                    backgroundColor: 'secondary.veryLightMain',
+                                    borderColor: 'white',
+                                    color: `white`,
+                                    opacity: `75%`
+                                }
+                            }}>
+                            Cadastre-se
+                        </Button>
+                    </Grid>
+                </Grid>
 
                 <Typography 
                     sx={{
