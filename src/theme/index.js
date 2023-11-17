@@ -10,8 +10,8 @@ export const darkTheme = createTheme({
         mode: 'dark',
         background: {
             navBar: '#D9D9D9', //#212121
-            footBox: grey[400], //#424242
-            card: grey[500],
+            footBox: grey[600], //#424242
+            card: grey[900],
             accordionHeader: grey[300]
         },
         primary: {

@@ -12,8 +12,8 @@ import Auth from "./pages/Auth";
 /** Pages */
 const SharedLayout = lazy(() => import("./pages/Shared/Layout/index"));
 const Home = lazy(() => import("./pages/Home/index"));
-const Sobre = lazy(() => import("./pages/Sobre/index"));
-const SuperUser = lazy(() => import("./pages/SuperUser/index"));
+const Notificacao = lazy(() => import("./pages/Notificacao/index"));
+const Configuracao = lazy(() => import("./pages/Configuracao/index"));
 
 export default function Router(  ) {
     return (
@@ -22,9 +22,9 @@ export default function Router(  ) {
                 <Routes>
                     <Route element={<SharedLayout/>}>
                         <Route path="/" element={<Home />} />
-                        <Route path="/sobre" element={<Sobre />} />
+                        <Route path="/notificacao" element={<Notificacao />} />
+                        <Route path="/configuracao" element={<Configuracao />} />
                     </Route>
-                    <Route path="/super-user" element={<SuperUser />} />
                 </Routes>
             </Suspense>
         </Auth>
