@@ -4,17 +4,20 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import './Colaborador.css'
+import AuthContext from "../../../context/AuthContext";
 
 export default function Coloaborador( {
-    tentouCadastrar={tentouCadastrar},
-    formComponents={formComponents},
-    handleBlur={handleBlur},
-    handleInputs={handleInputs},
+    tentouCadastrar=false
 } ) {
     const [calendarValue, setCalendarValue] = useState(dayjs(dayjs()));
     const [ radioButton, setRadio ] = useState('Feminino'); // true = colaborador, false = empresa;
+    const {
+        formComponents,
+        handleBlur,
+        handleInputs
+    } = useContext(AuthContext);
 
     useEffect(() => {
         console.log('Sexo:', radioButton)

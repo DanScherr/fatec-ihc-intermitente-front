@@ -1,6 +1,5 @@
 import React from "react";
-import { Badge, Box, Button, TextField, Typography } from "@mui/material";
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import { Badge, Box, Typography } from "@mui/material";
 import { DateCalendar, LocalizationProvider, PickersDay } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import './index.css'
@@ -14,20 +13,20 @@ function getRandomNumber(min, max) {
   }
 
 function fakeFetch(date, { signal }) {
-    return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        const daysInMonth = date.daysInMonth();
-        const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
-  
-        resolve({ daysToHighlight });
-      }, 500);
-  
-      signal.onabort = () => {
-        clearTimeout(timeout);
-        reject(new DOMException('aborted', 'AbortError'));
-      };
-    });
-  }
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      const daysInMonth = date.daysInMonth();
+      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
+
+      resolve({ daysToHighlight });
+    }, 500);
+
+    signal.onabort = () => {
+      clearTimeout(timeout);
+      reject(new DOMException('aborted', 'AbortError'));
+    };
+  });
+}
 
 export default function Home(  ) {
     const requestAbortController = React.useRef(null);
@@ -74,9 +73,14 @@ export default function Home(  ) {
         fetchHighlightedDays(date);
       };
 
+      const handleYearChange = () => {
+        setOpen(false);
+      };
+
       const handleDaySelection = (value) => {
         console.log(value.$d);
-        setSelectedDay(value.$d)
+        if (!isLoading)
+          setSelectedDay(value.$d)
         setOpen(true)
       }
 
@@ -102,7 +106,7 @@ export default function Home(  ) {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: 1000,
-                height: 750,
+                height: 720,
                 bgcolor: 'background.navBar',
                 border: '0.5px solid #000',
                 boxShadow: 15,
@@ -122,6 +126,7 @@ export default function Home(  ) {
                     sx={{mx: 'auto'}} 
                     showDaysOutsideCurrentMonth
                     loading={isLoading}
+                    onYearChange={handleYearChange}
                     onMonthChange={handleMonthChange}
                     onChange={(value) => handleDaySelection(value)}
                     renderLoading={() => <DayCalendarSkeleton />}
@@ -170,7 +175,7 @@ function ServerDay(props) {
       <Badge
         key={props.day.toString()}
         overlap="circular"
-        badgeContent={isSelected ? '🌚' : undefined}
+        badgeContent={isSelected ? '🔴' : undefined}
       >
         <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
       </Badge>

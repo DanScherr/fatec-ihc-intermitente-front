@@ -1,24 +1,25 @@
 import { FormControl, FormHelperText, Grid, Input, InputLabel } from "@mui/material";
 import { useContext, useEffect } from "react";
-import AuthContext from "../../../context/AuthContext";
 import './Compartilhado.css'
+import AuthContext from "../../../context/AuthContext";
 
 export default function Compartilhado( {
-    tentouCadastrar={tentouCadastrar} ,
-    formComponents={formComponents} ,
-    handleBlur={handleBlur},
-    handleInputs={handleInputs}
+    tentouCadastrar=false,
 } ) {
-
+    const {
+        formComponents,
+        handleBlur,
+        handleInputs
+    } = useContext(AuthContext)
     // EFEITO QUE RODA NO MOMENTO QUE AS VARIAVEIS MUDAM
     useEffect(() => {
-        console.log('Input de nome: ', formComponents.nome.value)
+        console.log('Input de nome: ', formComponents?.nome.value)
     }, [formComponents.nome.value])
     useEffect(() => {
-        console.log('Input de email: ', formComponents.email.value)
+        console.log('Input de email: ', formComponents?.email.value)
     }, [formComponents.email.value])
     useEffect(() => {
-        console.log('Input de senha: ', formComponents.senha.value)
+        console.log('Input de senha: ', formComponents?.senha.value)
     }, [formComponents.senha.value])
 
     
@@ -33,7 +34,8 @@ export default function Compartilhado( {
                             onChange={handleInputs}
                             onBlur={handleBlur}
                             id="input-nome" 
-                            aria-describedby="input-your-name" 
+                            aria-describedby="input-your-name"
+                            value={formComponents.nome.value}
                         />
                         <FormHelperText id='my-helper-input-nome'>{formComponents.nome.helperText}</FormHelperText>
                     </FormControl>
@@ -47,7 +49,8 @@ export default function Compartilhado( {
                             onChange={handleInputs}
                             onBlur={handleBlur}
                             id="input-documento" 
-                            aria-describedby="input-your-document" 
+                            aria-describedby="input-your-document"
+                            value={formComponents.documento.value}
                         />
                         <FormHelperText id='my-helper-input-documento'>{formComponents.documento.helperText}</FormHelperText>
                     </FormControl>
@@ -63,7 +66,8 @@ export default function Compartilhado( {
                             onChange={handleInputs}
                             onBlur={handleBlur} 
                             id="input-email" 
-                            aria-describedby="input-your-name" 
+                            aria-describedby="input-your-email"
+                            value={formComponents.email.value}
                         />
                         <FormHelperText id='my-helper-input-email'>{formComponents.email.helperText}</FormHelperText>
                     </FormControl>
@@ -78,7 +82,8 @@ export default function Compartilhado( {
                             onChange={handleInputs}
                             onBlur={handleBlur}
                             id="input-senha" 
-                            aria-describedby="input-your-name" 
+                            aria-describedby="input-your-senha" 
+                            value={formComponents.senha.value}
                         />
                         <FormHelperText id='my-helper-input-senha'>{formComponents.senha.helperText}</FormHelperText>
                     </FormControl>
@@ -91,11 +96,11 @@ export default function Compartilhado( {
                     <FormControl fullWidth error={formComponents.telefone.error} required={true} sx={{mb: 3, pr: 5}}>
                         <InputLabel htmlFor='input-telefone' sx={{color: 'font.main'}}>Telefone:</InputLabel>
                         <Input 
-                            type="password"
                             onChange={handleInputs}
                             onBlur={handleBlur}
                             id="input-telefone" 
-                            aria-describedby="input-your-name" 
+                            aria-describedby="input-your-telefone"
+                            value={formComponents.telefone.value}
                         />
                         <FormHelperText id='my-helper-input-telefone'>{formComponents.telefone.helperText}</FormHelperText>
                     </FormControl>
@@ -106,11 +111,11 @@ export default function Compartilhado( {
                     <FormControl fullWidth error={formComponents.endereco.error} required={true} sx={{mb: 3}}>
                         <InputLabel htmlFor='input-endereco' sx={{color: 'font.main'}}>Endereço:</InputLabel>
                         <Input 
-                            type="password"
                             onChange={handleInputs}
                             onBlur={handleBlur}
                             id="input-endereco" 
-                            aria-describedby="input-your-name" 
+                            aria-describedby="input-your-endereco"
+                            value={formComponents.endereco.value}
                         />
                         <FormHelperText id='my-helper-input-endereco'>{formComponents.endereco.helperText}</FormHelperText>
                     </FormControl>
