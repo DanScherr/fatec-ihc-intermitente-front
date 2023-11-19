@@ -106,7 +106,7 @@ export default function Home(  ) {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: 1000,
-                height: 720,
+                height: 700,
                 bgcolor: 'background.navBar',
                 border: '0.5px solid #000',
                 boxShadow: 15,

@@ -20,19 +20,19 @@
 
 /* CONTEUDO CALENDARIO */
 .MuiDateCalendar-root {
-    min-height: 700px;
+    min-height: 690px;
     min-width: 700px;
 }
 
 /* SCROLL AREA */
 #CalendarMain .MuiPickersSlideTransition-root {
-    min-height: 700px;
+    min-height: 690px;
     min-width: 700px;
 }
 
 /* ROW */
 #CalendarMain .MuiDayCalendar-weekContainer {
-    height: 100px;
+    height: 90px;
     justify-content: space-evenly !important;
     background-color: #f5f5f5;
 }
