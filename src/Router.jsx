@@ -12,10 +12,8 @@ import Auth from "./pages/Auth";
 /** Pages */
 const SharedLayout = lazy(() => import("./pages/Shared/Layout/index"));
 const Home = lazy(() => import("./pages/Home/index"));
-const Game = lazy(() => import("./pages/Game/index"));
-const Sobre = lazy(() => import("./pages/Sobre/index"));
-const Ranking = lazy(() => import("./pages/Ranking/index"));
-const SuperUser = lazy(() => import("./pages/SuperUser/index"));
+const Notificacao = lazy(() => import("./pages/Notificacao/index"));
+const Configuracao = lazy(() => import("./pages/Configuracao/index"));
 
 export default function Router(  ) {
     return (
@@ -23,13 +21,10 @@ export default function Router(  ) {
             <Suspense fallback={<LoadingPage />}>
                 <Routes>
                     <Route element={<SharedLayout/>}>
-                        <Route path="/" element={<Home />} >
-                            <Route path="jogar" element={<Game />} />
-                        </Route>
-                        <Route path="/sobre" element={<Sobre />} />
-                        <Route path="/ranking" element={<Ranking />} />
+                        <Route path="/" element={<Home />} />
+                        <Route path="/notificacao" element={<Notificacao />} />
+                        <Route path="/configuracao" element={<Configuracao />} />
                     </Route>
-                    <Route path="/super-user" element={<SuperUser />} />
                 </Routes>
             </Suspense>
         </Auth>

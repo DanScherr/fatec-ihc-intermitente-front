@@ -1,8 +1,7 @@
-import { Box, Button, FormControl, FormHelperText, Input, InputLabel, Stack, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormHelperText, Grid, Input, InputLabel, Stack, Typography } from "@mui/material";
 import AuthContext from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { validaEmail, validaSenha } from "../../bin/ValidaInputs";
-
 
 export default function Login( ) {
     const {
@@ -151,8 +150,8 @@ export default function Login( ) {
                 transform: 'translate(-50%, -50%)',
                 width: 500,
                 height: 500,
-                bgcolor: 'background.paper',
-                border: '2px solid #000',
+                bgcolor: 'background.navBar',
+                border: '1px solid #000',
                 boxShadow: 24,
                 p: 4,
                 borderRadius: 40,
@@ -168,19 +167,19 @@ export default function Login( ) {
 
                 {/* EMAIL INPUT */}
                 <FormControl error={formComponents.email.error} required={true} sx={{mb: 3}}> 
-                    <InputLabel htmlFor='input-email'>Email:</InputLabel>
-                    <Input 
+                    <InputLabel htmlFor='input-email' sx={{color: 'font.main'}}>Email:</InputLabel>
+                    <Input
                         onChange={handleInputs}
                         onBlur={handleBlur}
                         id="input-email" 
-                        aria-describedby="input-your-name" 
+                        aria-describedby="input-your-name"
                     />
                     <FormHelperText id='my-helper-input-email'>{formComponents.email.helperText}</FormHelperText>
                 </FormControl>
 
                 {/* SENHA INPUT */}
                 <FormControl error={formComponents.senha.error} required={true} sx={{mb: 3}}> 
-                    <InputLabel htmlFor='input-senha'>Senha:</InputLabel>
+                    <InputLabel htmlFor='input-senha' sx={{color: 'font.main'}}>Senha:</InputLabel>
                     <Input 
                         type="password"
                         onChange={handleInputs}
@@ -191,22 +190,38 @@ export default function Login( ) {
                     <FormHelperText id='my-helper-input-senha'>{formComponents.senha.helperText}</FormHelperText>
                 </FormControl>
 
-                {/* BOTAO SUBMIT */}
-                <Button onClick={handleSubmit} variant="outlined" sx={{my: 0.2}}>
-                    Submit
-                </Button>
-                {/* BOTAO VOLTAR */}
-                <Button onClick={() => setOpcao('')}
-                    variant="outlined" sx={{my: 0.2, color: `secondary.main`, borderColor: `secondary.main`, 
-                    '&:hover': {
-                        backgroundColor: 'secondary.veryLightMain',
-                        borderColor: 'white',
-                        boxShadow: 'none',
-                        color: `white`,
-                        opacity: `75%`
-                }}}>
-                    Voltar
-                </Button>
+
+                <Grid container justifyContent={'center'} alignItems={'center'} direction={'column'}
+                    sx={{position: 'fixed', bottom: 20, right: 20}}
+                >
+                    {/* BOTAO SUBMIT */}
+                    <Grid item xs={3}>
+                        {/* BOTAO SUBMIT */}
+                        <Button onClick={handleSubmit} variant="contained" sx={{mt: 3}}>
+                            Logar
+                        </Button>
+                    </Grid>
+
+                    {/* BOTAO VOLTAR */}
+                    <Grid item xs={3}>
+                        {/* BOTAO VOLTAR */}
+                        <Button onClick={() => setOpcao('cadastro')}
+                            variant="contained" 
+                            sx={{
+                                my: 1,
+                                backgroundColor: 'secondary.main',
+                                borderColor: `secondary.main`,
+                                '&:hover': {
+                                    backgroundColor: 'secondary.veryLightMain',
+                                    borderColor: 'white',
+                                    color: `white`,
+                                    opacity: `75%`
+                                }
+                            }}>
+                            Cadastre-se
+                        </Button>
+                    </Grid>
+                </Grid>
 
                 <Typography 
                     sx={{

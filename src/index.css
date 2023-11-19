@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #212121;
-  color: #B8B2B8;
+  background-color: #e0f2f1;
+  color: #424242;
 }
 
 code {
@@ -16,6 +16,11 @@ code {
 
 .body-text {
   color: #44335a;
+}
+
+/* ===== MUI ALTERACOES ===== */
+.MuiInput-root:before, :not(.Mui-error) {
+  border-color: #424242 !important;
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

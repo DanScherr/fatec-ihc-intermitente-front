@@ -3,6 +3,7 @@ import { createContext } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { apiAdress } from '../bin/api';
+import { validaEmail, validaNome, validaSenha, validaDocumento, validaEndereco, validaTelefone } from '../bin/ValidaInputs';
 
 const AuthContext = createContext();
 
@@ -118,229 +119,245 @@ export const AuthProvider = ({children}) => {
         setLogin(prev => {return {loading: false, login: false}});
     }
 
-    // MONETIZACAO
-
-    const [carteira, setCarteira] = React.useState(0)
-
-    const ConsultaCarteira = async () => {
-        let usuario = Cookies.get('userId');
-        try {
-            const response = await axios.get(
-                production?`${apiAdress}`: '' + `/api/v1/usuario/${usuario}`,
-                Headers()
-            );
-            if (response.status === 200 && response.data.status === true) {
-                setCarteira(response.data.data.carteira);
-            };
-            console.log('carteira: ', carteira.toString())
-        } catch (error) {
-            console.error(error);
-        };
+    // CADASTRO
+    // VARIAVEIS DO FORMULARIO
+    let formInitialValue = {
+        nome: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+        email: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+        senha: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+        documento: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+        endereco: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+        telefone: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
     };
 
-    const AlteraCarteira = async (moedas) => {
-        let usuario = Cookies.get('userId');
-        try {
-            const response = await axios.put(
-                production?`${apiAdress}`: '' + `/api/v1/usuario/${usuario}`,
-                {
-                    carteira: moedas
-                },
-                Headers()
-            );
-            if (response.status === 200 && response.data.status === true)
-                ConsultaCarteira();
-        } catch (error) {
-            console.error(error);
-        };
-    };
+    const [formComponents, setFormComponents] = React.useState(formInitialValue);
 
-    const CompraFicha = async (idMonetizacao) => {
-        let usuario = Cookies.get('userId');
-        try {
-            const response = await axios.post(
-                production?`${apiAdress}`: '' + `/api/v1/usuarioMonetizacao/`,
-                {
-                    id_usuario: usuario,
-                    id_monetizacao: idMonetizacao
-                },
-                Headers()
-            );
-            if (response.status === 200 && response.data.status === true)
-                console.log('Ficha comprada com sucesso!!')
-        } catch (error) {
-            console.error(error);
-        };
-    };
-
-    // TEMAS
-    const [todosTemas, setTodosTemas] = React.useState({loading: true, data: []})
-    const BuscaTemas = async (email, senha) => {
-        let data = [];
-        let usuario = Cookies.get('userId');
-        try {
-            const response = await axios.get(
-                production?`${apiAdress}`: '' + `/api/v1/monetizacao/${usuario}`,
-                Headers()
-            );
-            if (response.status === 200 && response.data.status === true) {
-                response.data.data.forEach(element => {
-                    let indexOfCat = findCategoria(data, element.categoria);
-
-                    if ( indexOfCat === -1 ) 
-                        data.push({
-                            categoria: element.categoria,
-                            temas: [
-                                {
-                                    id_Mon: element.id_Mon,
-                                    nome: element.nome,
-                                    descricao: element.descricao,
-                                    imagem: element.imagem,
-                                    valor: element.valor
-                                }
-                            ]
-                        })
-                    else {
-                        let indexOfCat = findCategoria(data, element.categoria);
-
-                        if (findTema(data[indexOfCat].temas, element.nome) === -1)
-                            data[indexOfCat].temas.push(
-                                {
-                                    id_Mon: element.id_Mon,
-                                    nome: element.nome,
-                                    descricao: element.descricao,
-                                    imagem: element.imagem,
-                                    valor: element.valor
-                                }
-                        )
-                }
-                });
-            };
-            setTodosTemas({loading: false, data: data});
-            console.log('resposta temas:',response)
-            
-        } catch (error) {
-            console.error(error);
-            let data = [];
-            // let usuario = Cookies.get('userId');
-            try {
-                const response = await axios.get(
-                    production?`${apiAdress}`: '' + `/api/v1/monetizacao`,
-                    Headers()
-                );
-                if (response.status === 200 && response.data.status === true) {
-                    response.data.data.forEach(element => {
-                        let indexOfCat = findCategoria(data, element.categoria);
-
-                        if ( indexOfCat === -1 ) 
-                            data.push({
-                                categoria: element.categoria,
-                                temas: [
-                                    {
-                                        id_Mon: element.id_Mon,
-                                        nome: element.nome,
-                                        descricao: element.descricao,
-                                        imagem: element.imagem,
-                                        valor: element.valor
-                                    }
-                                ]
-                            })
-                        else {
-                            let indexOfCat = findCategoria(data, element.categoria);
-
-                            if (findTema(data[indexOfCat].temas, element.nome) === -1)
-                                data[indexOfCat].temas.push(
-                                    {
-                                        id_Mon: element.id_Mon,
-                                        nome: element.nome,
-                                        descricao: element.descricao,
-                                        imagem: element.imagem,
-                                        valor: element.valor
-                                    }
-                            )
+    // LIDA COM OS INPUTS
+    const handleInputs = (e) => {
+        e.preventDefault();
+        switch (e.target.id) {
+            case 'input-nome':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas item abaixo
+                        nome: {
+                            value: e.target.value
+                        }
                     }
-                    });
-                };
-                setTodosTemas({loading: false, data: data});
-                console.log('resposta temas:',response)
-                
-            } catch (error) {
-                console.error(error);
-            };
-        };
-    };
-
-    const findCategoria = (array, value) => {
-        if (array.length !== 0){
-            for (let index = 0; index < array.length; index++) {
-                const element = array[index].categoria;
-                if (element === value) 
-                    return index
-            };
-            return -1;
-        } 
-        else return -1
-    };
-
-    const findTema = (array, value) => {
-        if (array.length !== 0){
-            for (let index = 0; index < array.length; index++) {
-                const element = array[index].nome;
-                if (element === value) 
-                    return index
-            };
-            return -1;
-        } 
-        else return -1
-    };
-
-    const [usuarioTemas, setusuarioTemas] = React.useState({loading: true, data: []})
-    const ConsultaUsuarioTemas = async () => {
-        let usuario = Cookies.get('userId');
-        let data = [];
-        try {
-            const response = await axios.get(
-                production?`${apiAdress}`: '' + `/api/v1/usuarioMonetizacao/${usuario}/with-monetizacao-by-usuario`,
-                Headers()
-            );
-            if (response.status === 200 && response.data.status === true) {
-                response.data.data.forEach(element => {
-                    let indexOfCat = findCategoria(data, element.categoria);
-
-                    if ( indexOfCat === -1 ) 
-                        data.push({
-                            categoria: element.categoria,
-                            temas: [
-                                {
-                                    id_Mon: element.id_Mon,
-                                    nome: element.nome,
-                                    descricao: element.descricao,
-                                    imagem: element.imagem,
-                                    valor: element.valor
-                                }
-                            ]
-                        })
-                    else {
-                        let indexOfCat = findCategoria(data, element.categoria);
-
-                        if (findTema(data[indexOfCat].temas, element.nome) === -1)
-                            data[indexOfCat].temas.push(
-                                {
-                                    id_Mon: element.id_Mon,
-                                    nome: element.nome,
-                                    descricao: element.descricao,
-                                    imagem: element.imagem,
-                                    valor: element.valor
-                                }
-                        )
-                }
                 });
-            };
-            setusuarioTemas({loading: false, data: data});
-        } catch (error) {
-            console.error(error);
+                break;
+
+            case 'input-email':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        email: {
+                            value: e.target.value
+                        }
+                    }
+                });
+                break;
+
+            case 'input-senha':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        senha: {
+                            value: e.target.value
+                        }
+                    }
+                });
+                break;
+
+                case 'input-documento':
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas item abaixo
+                            documento: {
+                                value: e.target.value
+                            }
+                        }
+                    });
+                    break;
+    
+                case 'input-endereco':
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas o item abaixo
+                            endereco: {
+                                value: e.target.value
+                            }
+                        }
+                    });
+                    break;
+    
+                case 'input-telefone':
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas o item abaixo
+                            telefone: {
+                                value: e.target.value
+                            }
+                        }
+                    });
+                    break;        
+
+            default:
+                break;
+        }
+    };
+
+    // LIDA COM O BLUR
+    const handleBlur = (e) => {
+        e.preventDefault();
+        
+        switch (e.target.id) {
+            case 'input-nome':
+                let nomeError = validaNome(e.target.value);
+                console.log(e.target.value);
+                if (nomeError != null)
+                {
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas item abaixo
+                            nome: {
+                                error: true,
+                                helperText: nomeError,
+                                color: 'danger'
+                            }
+                        }
+                    });
+                }
+                break;
+
+                case 'input-email':
+                    let emailError = validaEmail(e.target.value);
+                    console.log(e.target.value);
+                    if (emailError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                email: {
+                                    error: true,
+                                    helperText: emailError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+    
+                case 'input-senha':
+                    let senhaError = validaSenha(e.target.value);
+                    console.log(e.target.value);
+                    if (senhaError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                senha: {
+                                    error: true,
+                                    helperText: senhaError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+
+                case 'input-documento':
+                    let documentoError = validaDocumento(e.target.value);
+                    console.log(e.target.value);
+                    if (documentoError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                documento: {
+                                    error: true,
+                                    helperText: documentoError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+
+                case 'input-endereco':
+                    let enderecoError = validaEndereco(e.target.value);
+                    console.log(e.target.value);
+                    if (enderecoError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                endereco: {
+                                    error: true,
+                                    helperText: enderecoError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+
+                case 'input-telefone':
+                    let telefoneError = validaTelefone(e.target.value);
+                    console.log(e.target.value);
+                    if (telefoneError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                telefone: {
+                                    error: true,
+                                    helperText: telefoneError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+        
+            default:
+                break;
         };
     };
+
+    const handleClearForm = () => {
+        setFormComponents(formInitialValue);
+    }
 
     // Notificacao
     const [openNotificacao, setOpenNotificacao] = React.useState({
@@ -363,12 +380,11 @@ export const AuthProvider = ({children}) => {
             RealizaCadastro, RealizaLogout,
             RealizaLogin, login,
             userId,
-            todosTemas,
-            BuscaTemas,
-            ConsultaUsuarioTemas, usuarioTemas,
-            ConsultaCarteira, AlteraCarteira, carteira,
-            CompraFicha,
-            openNotificacao, setOpenNotificacao
+            openNotificacao, setOpenNotificacao,
+            formComponents, setFormComponents,
+            handleInputs,
+            handleBlur,
+            handleClearForm
         }}
     >
         {children}
