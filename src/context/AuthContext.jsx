@@ -24,7 +24,7 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    const [auth, setAuth] = React.useState(false);
+    const [auth, setAuth] = React.useState(true);
     const [opcao, setOpcao] = React.useState('');
     const [cookieAuth, setCookieAuth] = React.useState(false);
 
