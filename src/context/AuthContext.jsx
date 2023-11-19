@@ -3,7 +3,7 @@ import { createContext } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { apiAdress } from '../bin/api';
-import { validaEmail, validaNome, validaSenha } from '../bin/ValidaInputs';
+import { validaEmail, validaNome, validaSenha, validaDocumento, validaEndereco, validaTelefone } from '../bin/ValidaInputs';
 
 const AuthContext = createContext();
 
@@ -24,7 +24,7 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    const [auth, setAuth] = React.useState(true);
+    const [auth, setAuth] = React.useState(false);
     const [opcao, setOpcao] = React.useState('');
     const [cookieAuth, setCookieAuth] = React.useState(false);
 
@@ -200,36 +200,57 @@ export const AuthProvider = ({children}) => {
                 break;
 
             case 'input-documento':
-                setFormComponents(prevVaules => {
-                    return {
-                        ...prevVaules, // atualiza apenas o item abaixo
-                        documento: {
-                            value: e.target.value
+                let documentoError = validaDocumento(e.target.value);
+                console.log(e.target.value);
+                if (documentoError != null)
+                {
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas o item abaixo
+                            documento: {
+                                error: true,
+                                helperText: documentoError,
+                                color: 'danger'
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 break;
 
             case 'input-endereco':
-                setFormComponents(prevVaules => {
-                    return {
-                        ...prevVaules, // atualiza apenas o item abaixo
-                        endereco: {
-                            value: e.target.value
+                let enderecoError = validaEndereco(e.target.value);
+                console.log(e.target.value);
+                if (enderecoError != null)
+                {
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas o item abaixo
+                            endereco: {
+                                error: true,
+                                helperText: enderecoError,
+                                color: 'danger'
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 break;
 
             case 'input-telefone':
-                setFormComponents(prevVaules => {
-                    return {
-                        ...prevVaules, // atualiza apenas o item abaixo
-                        telefone: {
-                            value: e.target.value
+                let telefoneError = validaTelefone(e.target.value);
+                console.log(e.target.value);
+                if (telefoneError != null)
+                {
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas o item abaixo
+                            telefone: {
+                                error: true,
+                                helperText: telefoneError,
+                                color: 'danger'
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 break;
         
             default:
@@ -297,16 +318,16 @@ export const AuthProvider = ({children}) => {
                     break;
 
                 case 'input-documento':
-                    let documentoError = validaSenha(e.target.value);
+                    let documentoError = validaDocumento(e.target.value);
                     console.log(e.target.value);
-                    if (senhaError != null)
+                    if (documentoError != null)
                     {
                         setFormComponents(prevVaules => {
                             return {
                                 ...prevVaules, // atualiza apenas o item abaixo
                                 documento: {
                                     error: true,
-                                    helperText: senhaError,
+                                    helperText: documentoError,
                                     color: 'danger'
                                 }
                             }
@@ -315,16 +336,16 @@ export const AuthProvider = ({children}) => {
                     break;
 
                 case 'input-endereco':
-                    let enderecoError = validaSenha(e.target.value);
+                    let enderecoError = validaEndereco(e.target.value);
                     console.log(e.target.value);
-                    if (senhaError != null)
+                    if (enderecoError != null)
                     {
                         setFormComponents(prevVaules => {
                             return {
                                 ...prevVaules, // atualiza apenas o item abaixo
                                 endereco: {
                                     error: true,
-                                    helperText: senhaError,
+                                    helperText: enderecoError,
                                     color: 'danger'
                                 }
                             }
@@ -333,16 +354,16 @@ export const AuthProvider = ({children}) => {
                     break;
 
                 case 'input-telefone':
-                    let telefoneError = validaSenha(e.target.value);
+                    let telefoneError = validaTelefone(e.target.value);
                     console.log(e.target.value);
-                    if (senhaError != null)
+                    if (telefoneError != null)
                     {
                         setFormComponents(prevVaules => {
                             return {
                                 ...prevVaules, // atualiza apenas o item abaixo
                                 telefone: {
                                     error: true,
-                                    helperText: senhaError,
+                                    helperText: telefoneError,
                                     color: 'danger'
                                 }
                             }
