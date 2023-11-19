@@ -199,60 +199,39 @@ export const AuthProvider = ({children}) => {
                 });
                 break;
 
-            case 'input-documento':
-                let documentoError = validaDocumento(e.target.value);
-                console.log(e.target.value);
-                if (documentoError != null)
-                {
+                case 'input-documento':
                     setFormComponents(prevVaules => {
                         return {
-                            ...prevVaules, // atualiza apenas o item abaixo
+                            ...prevVaules, // atualiza apenas item abaixo
                             documento: {
-                                error: true,
-                                helperText: documentoError,
-                                color: 'danger'
+                                value: e.target.value
                             }
                         }
                     });
-                }
-                break;
-
-            case 'input-endereco':
-                let enderecoError = validaEndereco(e.target.value);
-                console.log(e.target.value);
-                if (enderecoError != null)
-                {
+                    break;
+    
+                case 'input-endereco':
                     setFormComponents(prevVaules => {
                         return {
                             ...prevVaules, // atualiza apenas o item abaixo
                             endereco: {
-                                error: true,
-                                helperText: enderecoError,
-                                color: 'danger'
+                                value: e.target.value
                             }
                         }
                     });
-                }
-                break;
-
-            case 'input-telefone':
-                let telefoneError = validaTelefone(e.target.value);
-                console.log(e.target.value);
-                if (telefoneError != null)
-                {
+                    break;
+    
+                case 'input-telefone':
                     setFormComponents(prevVaules => {
                         return {
                             ...prevVaules, // atualiza apenas o item abaixo
                             telefone: {
-                                error: true,
-                                helperText: telefoneError,
-                                color: 'danger'
+                                value: e.target.value
                             }
                         }
                     });
-                }
-                break;
-        
+                    break;        
+
             default:
                 break;
         }
