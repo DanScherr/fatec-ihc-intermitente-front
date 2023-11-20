@@ -43,7 +43,7 @@ export default function Coloaborador( {
 
                 {/* SEXO INPUT */}
                 <Grid item xs={6}>
-                    <FormControl fullWidth error={formComponents.endereco.error} required={true} sx={{mb: 3}}>
+                    <FormControl fullWidth required={true} sx={{mb: 3}}>
                         <FormLabel htmlFor='input-nome' sx={{color: 'font.main'}}>Sexo:</FormLabel>
                         <RadioGroup
                             aria-labelledby="demo-radio-buttons-group-label"

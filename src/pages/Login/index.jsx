@@ -185,7 +185,7 @@ export default function Login( ) {
                         onChange={handleInputs}
                         onBlur={handleBlur}
                         id="input-senha" 
-                        aria-describedby="input-your-name" 
+                        aria-describedby="input-your-senha" 
                     />
                     <FormHelperText id='my-helper-input-senha'>{formComponents.senha.helperText}</FormHelperText>
                 </FormControl>
@@ -208,7 +208,7 @@ export default function Login( ) {
                         <Button onClick={() => setOpcao('cadastro')}
                             variant="contained" 
                             sx={{
-                                my: 1,
+                                mt: 2,
                                 backgroundColor: 'secondary.main',
                                 borderColor: `secondary.main`,
                                 '&:hover': {
