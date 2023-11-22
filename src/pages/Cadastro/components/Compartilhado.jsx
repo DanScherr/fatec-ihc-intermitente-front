@@ -35,7 +35,6 @@ export default function Compartilhado( {
                             onBlur={handleBlur}
                             id="input-nome" 
                             aria-describedby="input-your-name"
-                            value={formComponents.nome.value}
                         />
                         <FormHelperText id='my-helper-input-nome'>{formComponents.nome.helperText}</FormHelperText>
                     </FormControl>
@@ -50,7 +49,6 @@ export default function Compartilhado( {
                             onBlur={handleBlur}
                             id="input-documento" 
                             aria-describedby="input-your-document"
-                            value={formComponents.documento.value}
                         />
                         <FormHelperText id='my-helper-input-documento'>{formComponents.documento.helperText}</FormHelperText>
                     </FormControl>
@@ -67,7 +65,6 @@ export default function Compartilhado( {
                             onBlur={handleBlur} 
                             id="input-email" 
                             aria-describedby="input-your-email"
-                            value={formComponents.email.value}
                         />
                         <FormHelperText id='my-helper-input-email'>{formComponents.email.helperText}</FormHelperText>
                     </FormControl>
@@ -83,7 +80,6 @@ export default function Compartilhado( {
                             onBlur={handleBlur}
                             id="input-senha" 
                             aria-describedby="input-your-senha" 
-                            value={formComponents.senha.value}
                         />
                         <FormHelperText id='my-helper-input-senha'>{formComponents.senha.helperText}</FormHelperText>
                     </FormControl>
@@ -100,7 +96,6 @@ export default function Compartilhado( {
                             onBlur={handleBlur}
                             id="input-telefone" 
                             aria-describedby="input-your-telefone"
-                            value={formComponents.telefone.value}
                         />
                         <FormHelperText id='my-helper-input-telefone'>{formComponents.telefone.helperText}</FormHelperText>
                     </FormControl>
