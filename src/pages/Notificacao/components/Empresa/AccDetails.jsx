@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, Grid, Tooltip, Typography, Button, Modal, Box } from "@mui/material";
 import CancelIcon from '@mui/icons-material/Cancel';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import './AccDetails.css'
 import Qualificacoes from "../../../Configuracao/components/Qualificacoes";
 
@@ -17,15 +16,11 @@ export default function AccDetails({item}) {
         >
             <Grid container sx={{mb: 2.6}} justifyContent={'end'}>
                 <Grid item>
-                    {/* Confirm Button */}
-                    <Tooltip title={`Aceitar!`} placement="top-start" arrow>
-                        <Button sx={{display: item.status!=='aberto'&&'none', m: 0, p:0, width: '24px'}}>
-                            <CheckCircleIcon sx={{color: '#00bfa5'}} />
-                        </Button>
-                    </Tooltip>
                     {/* Cancel Button */}
                     <Tooltip title={`Cancelar!`} placement="top-start" arrow>
-                        <Button sx={{display: item.status==='cancelado'&&'none', m: 0, p:0, width: '24px'}}>
+                        <Button onClick={() => setOpen(true)}
+                            sx={{display: item.status==='cancelado'&&'none', m: 0, p:0, width: '24px'}}
+                        >
                             <CancelIcon sx={{color: '#dd2c00'}} />
                         </Button>
                     </Tooltip>

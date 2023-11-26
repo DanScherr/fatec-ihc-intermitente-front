@@ -13,7 +13,7 @@ export default function ConfiguracaoColaborador( ) {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: 800,
-                height: 700,
+                height: 600,
                 bgcolor: 'background.navBar',
                 border: '2px solid #000',
                 boxShadow: 24,

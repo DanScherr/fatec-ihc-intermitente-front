@@ -105,8 +105,8 @@ export default function Home(  ) {
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: 1000,
-                height: 700,
+                width: 900,
+                height: 600,
                 bgcolor: 'background.navBar',
                 border: '0.5px solid #000',
                 boxShadow: 15,
@@ -153,10 +153,10 @@ export default function Home(  ) {
                 aria-describedby="modal-modal-description"
                 >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Dia selecionado foi:
+                    <Typography id="modal-modal-title" color={'white'} variant="h6" component="h2">
+                        Projeto:
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Typography id="modal-modal-description" color={'white'} sx={{ mt: 2 }}>
                         {selectedDay.toString()}
                     </Typography>
                 </Box>
