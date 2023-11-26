@@ -1,10 +1,9 @@
-import { Card, CardContent, Grid, Typography, Accordion, AccordionSummary, List, AccordionDetails, Avatar, Box, Button, Tooltip } from "@mui/material";
+import React from "react";
+import { Card, CardContent, Grid, Typography, Accordion, AccordionSummary, List, AccordionDetails, Avatar, Box, Button, Tooltip, ButtonBase, Modal } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AccDetails from "./Colaborador/AccDetails";
+import AccDetails from "./Empresa/AccDetails";
 import CheckIcon from '@mui/icons-material/Check';
-import CancelIcon from '@mui/icons-material/Cancel';
 import CircleIcon from '@mui/icons-material/Circle';
-import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 
 
@@ -19,7 +18,7 @@ export default function NotificacaoEmpresa( ) {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: 800,
-                height: 700,
+                height: 600,
                 bgcolor: 'background.navBar',
                 border: '2px solid #000',
                 boxShadow: 24,
@@ -31,7 +30,7 @@ export default function NotificacaoEmpresa( ) {
             // mt: 1
         }}>
             <CardContent>
-                {/** PAGOS */}
+                {/** TITULO */}
                 <Typography variant="span" sx={{
                     textAlign: 'center', fontSize: '25px',
                     color: 'primary.lightMain', fontWeight: '700'
@@ -98,20 +97,7 @@ export default function NotificacaoEmpresa( ) {
 
 
                                             </Grid>
-                                            <Grid item xs={3}>
-                                                {/* Confirm Button */}
-                                                <Tooltip title={`Editar!`} placement="top-start" arrow>
-                                                    <Button sx={{display: item.status==='aceito'&&'none', m: 0, p:0, width: '24px'}}>
-                                                        <EditIcon sx={{color: 'font.main'}} />
-                                                    </Button>
-                                                </Tooltip>
-                                                {/* Cancel Button */}
-                                                <Tooltip title={`Cancelar!`} placement="top-start" arrow>
-                                                    <Button sx={{display: item.status==='cancelado'&&'none', m: 0, p:0, width: '24px'}}>
-                                                        <CancelIcon sx={{color: 'font.main'}} />
-                                                    </Button>
-                                                </Tooltip>
-                                            </Grid>
+                                            
                                         </Grid>
                                         
                                     {/* PARTE INTERNA DO ACCORDION */}
@@ -135,10 +121,11 @@ export default function NotificacaoEmpresa( ) {
                     </div>
                     
                 </List>
-            </CardContent>          
+            </CardContent>
+            
         </Card>
     )
-}
+};
 
 const handleNotificacaoStatus = (status) => {
     switch (status) {

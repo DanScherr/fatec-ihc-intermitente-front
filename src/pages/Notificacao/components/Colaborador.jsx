@@ -1,8 +1,6 @@
 import { Card, CardContent, Grid, Typography, Accordion, AccordionSummary, List, AccordionDetails, Avatar, Box, Button, Tooltip } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccDetails from "./Colaborador/AccDetails";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
 import CircleIcon from '@mui/icons-material/Circle';
 
 export default function NotificacaoColaborador( ) {
@@ -16,7 +14,7 @@ export default function NotificacaoColaborador( ) {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: 800,
-                height: 700,
+                height: 600,
                 bgcolor: 'background.navBar',
                 border: '2px solid #000',
                 boxShadow: 24,
@@ -77,20 +75,7 @@ export default function NotificacaoColaborador( ) {
                                                     {item.nome}
                                                 </Typography>
                                             </Grid>
-                                            <Grid item xs={3}>
-                                                {/* Confirm Button */}
-                                                <Tooltip title={`Aceitar!`} placement="top-start" arrow>
-                                                    <Button sx={{display: item.status==='aceito'&&'none', m: 0, p:0, width: '24px'}}>
-                                                        <CheckCircleIcon sx={{color: '#00bfa5'}} />
-                                                    </Button>
-                                                </Tooltip>
-                                                {/* Cancel Button */}
-                                                <Tooltip title={`Cancelar!`} placement="top-start" arrow>
-                                                    <Button sx={{display: item.status==='cancelado'&&'none', m: 0, p:0, width: '24px'}}>
-                                                        <CancelIcon sx={{color: '#dd2c00'}} />
-                                                    </Button>
-                                                </Tooltip>
-                                            </Grid>
+                                            
                                         </Grid>
                                         
                                     {/* PARTE INTERNA DO ACCORDION */}
