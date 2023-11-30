@@ -4,12 +4,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { apiAdress } from '../bin/api';
 import { validaEmail, validaNome, validaSenha, validaDocumento, validaEndereco, validaTelefone } from '../bin/ValidaInputs';
+import dayjs from 'dayjs';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
-    let production = false;
+    let production = true;
 
     const Headers = () => {
         if (production) {
@@ -24,53 +25,73 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    const [auth, setAuth] = React.useState(true);
+    const [auth, setAuth] = React.useState(false);
     const [opcao, setOpcao] = React.useState('');
     const [cookieAuth, setCookieAuth] = React.useState(false);
 
     const ValidaCookie = async () => {
         const authToken = Cookies.get('authToken');
-        const loginId = Cookies.get('userId');
 
-        try {
-            const response = await axios.get(
-                production?`${apiAdress}`: '' + `/api/v1/usuario/${loginId}`,
-                Headers()
-            );
-            if (response.status === 200 && response.data.status === true) {
-                if (authToken) {
-                    setAuth(true);
-                    setUserId(loginId);
-                };
-            }
-            else RealizaLogout();
-            
-        } catch (error) {
-            setCadastro(prev => {return {loading: false, cadastro: false}});
-            console.error(error);
+        if (authToken) {
+            setAuth(true);
         };
-
-        
-        // else ValidateLogin(); // buscando dados do DB
     };
 
     const [cadastro, setCadastro] = React.useState({loading: false, cadastro: false});
-
-    const RealizaCadastro = async (nome, email, senha) => {
+    const schemaEmpresa = {
+        nomeEmpresa: "string",
+        documentoCNPJ: "string",
+        siteEmpresa: "string",
+        telefone: "string",
+        email: "string",
+        logradouro: "string",
+        numero: "string",
+        bairro: "string",
+        cidade: "string",
+        uf: "string",
+        cep: "string"
+    }
+    const RealizaCadastro = async (nome, documento, email, telefone, senha, endereco) => {
         setCadastro(prev => {return {loading: true, cadastro: false}});
         console.log('Realizando cadastro')
+        let schema = {};
+        
         try {
-            let data = [];
+            if (!radioButton) schema = {
+                nomeEmpresa: nome,
+                documentoCNPJ: documento,
+                telefone: telefone,
+                senha: senha,
+                email: email,
+                logradouro: endereco,
+                siteEmpresa: `www.empresa.com`,
+                numero: '0',
+                bairro: '0',
+                cidade: '0',
+                uf: '0',
+                cep: '0'
+            }
+            else schema = {
+                nome: nome,
+                documentoCPF: documento,
+                email: email,
+                telefone: telefone,
+                senha: senha,
+                logradouro: endereco,
+                dtNascimento: calendarValue,
+                sexo: radioButtonSexo,
+                numero: '0',
+                bairro: '0',
+                cidade: '0',
+                uf: '0',
+                cep: '0'
+            }
             const response = await axios.post(
-                production?`${apiAdress}`: '' + `/api/v1/usuario`,
-                {
-                    nome: nome,
-                    email: email,
-                    senha: senha
-                },
+                !radioButton?`${apiAdress}empresa`:`${apiAdress}colaborador`,
+                schema,
                 Headers()
             );
-            if (response.status === 201 && response.data.status === true) {
+            if (response.status === 200) {
                 setOpcao('login');
                 setCadastro(prev => {return {loading: false, cadastro: true}});
             }
@@ -83,26 +104,26 @@ export const AuthProvider = ({children}) => {
 
     const [login, setLogin] = React.useState({loading: false, login: false});
     const [userId, setUserId] = React.useState(null);
+    const [tipo, setTipo] = React.useState('');
 
     const RealizaLogin = async (email, senha) => {
         setLogin(prev => {return {loading: true, login: false}});
-        console.log('Realizando login..')
+        console.log('Realizando login..', email, senha)
         try {
             const response = await axios.post(
-                production?`${apiAdress}`: '' + `/api/v1/login`,
+                production?`${apiAdress}login`: '' + `/api/v1/login`,
                 {
                     email: email,
                     senha: senha
                 },
                 Headers()
             );
-            if (response.status === 200 && response.data.status === true) {
+            if (response.status === 200) {
                 setLogin(prev => {return {loading: false, login: true}});
+                setTipo(response.data.flTipoLogin);
                 setUserId(response.data.id);
-                console.log(response)
-                Cookies.set('authToken', true, { expires: 7 });
-                Cookies.set('userId', response.data.id, { expires: 7 });
-                ValidaCookie();
+                setAuth(true)
+                Cookies.set('authToken', true)
             }
             console.log(response)
             
@@ -230,7 +251,18 @@ export const AuthProvider = ({children}) => {
                             }
                         }
                     });
-                    break;        
+                    break; 
+                
+                case 'input-sexo':
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas o item abaixo
+                            sexo: {
+                                value: e.target.value
+                            }
+                        }
+                    });
+                    break; 
 
             default:
                 break;
@@ -366,6 +398,12 @@ export const AuthProvider = ({children}) => {
         severity: 'info'
     });
 
+    // colaborador ou empresa
+    const [ radioButton, setRadio ] = React.useState(true); // true = colaborador, false = empresa;
+    const [calendarValue, setCalendarValue] = React.useState(dayjs(dayjs()));
+    const [ radioButtonSexo, setRadioSexo ] = React.useState('Feminino'); // true = colaborador, false = empresa;
+
+
     return <AuthContext.Provider
         value={{
             auth: auth,
@@ -384,7 +422,10 @@ export const AuthProvider = ({children}) => {
             formComponents, setFormComponents,
             handleInputs,
             handleBlur,
-            handleClearForm
+            handleClearForm,
+            radioButton, setRadio,
+            calendarValue, setCalendarValue,
+            radioButtonSexo, setRadioSexo
         }}
     >
         {children}

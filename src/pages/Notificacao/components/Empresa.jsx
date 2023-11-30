@@ -5,11 +5,14 @@ import AccDetails from "./Empresa/AccDetails";
 import CheckIcon from '@mui/icons-material/Check';
 import CircleIcon from '@mui/icons-material/Circle';
 import ClearIcon from '@mui/icons-material/Clear';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ModalNovoProjeto from "./Empresa/ModalNovoProjeto";
 
 
 export default function NotificacaoEmpresa( ) {
 
     let loading = false;
+    const [open, setOpen] = React.useState(false);
 
     return (
         <Card sx={{
@@ -37,6 +40,10 @@ export default function NotificacaoEmpresa( ) {
                 }}>
                     Notificações empresa
                 </Typography>
+                <Button onClick={() => setOpen(true)}>
+                    <AddCircleIcon />
+                </Button>
+                
                 <List
                     sx={{
                         width: '100%',
@@ -122,7 +129,16 @@ export default function NotificacaoEmpresa( ) {
                     
                 </List>
             </CardContent>
-            
+            <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                >
+                <Box sx={style}>
+                    <ModalNovoProjeto setOpen={setOpen} />
+                </Box>
+            </Modal>
         </Card>
     )
 };
@@ -139,7 +155,19 @@ const handleNotificacaoStatus = (status) => {
         default:
             break;
     }
-}
+};
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const notificacoes = [
     {id:0, nome: 'projeto 0', empresa: 'empresa 0', status: 'aberto', valorHora: '1000', dtInicio: '12/12/2023', dtFim: '15/12/2023', qtAceite: 2, qtdRecusa: 1, qualificacoes: [

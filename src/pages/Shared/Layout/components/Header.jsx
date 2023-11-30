@@ -20,10 +20,7 @@ import {
     Button,
     Icon,
 } from '@mui/material';
-import ExtensionIcon from '@mui/icons-material/Extension';
-import MenuIcon from '@mui/icons-material/Menu';
 /** Assets */
-import profileImg from './../../../../static/images/avatar/logo-profile-01.png'
 import AuthContext from '../../../../context/AuthContext';
 import icon from './../../../../static/images/icon/logo192.png'
 

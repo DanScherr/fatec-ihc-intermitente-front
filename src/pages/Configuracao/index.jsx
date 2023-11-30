@@ -5,7 +5,7 @@ import { useContext } from "react"
 import AuthContext from "../../context/AuthContext"
 
 export default function Configuracao(params) {
-    let perfil = 'colaborador';
+    const {tipo} = useContext(AuthContext);
     const {
         handleSubmit,
         setOpcao,
@@ -16,7 +16,7 @@ export default function Configuracao(params) {
         <>
             PAGINA DE CONFIGURACAO
             {
-                perfil === 'empresa' ?
+                tipo === 'empresa' ?
                 <ConfiguracaoEmpresa />
                 :
                 <ConfiguracaoColaborador />
@@ -24,7 +24,7 @@ export default function Configuracao(params) {
             <Grid container justifyContent={'center'} alignItems={'center'} direction={'row'}
                 sx={{
                     position: 'fixed', 
-                    bottom: perfil==='empresa'?200:90, 
+                    bottom: tipo==='empresa'?200:90, 
                     right: 0
                 }}
             >
