@@ -425,7 +425,8 @@ export const AuthProvider = ({children}) => {
             handleClearForm,
             radioButton, setRadio,
             calendarValue, setCalendarValue,
-            radioButtonSexo, setRadioSexo
+            radioButtonSexo, setRadioSexo,
+            tipo, setTipo
         }}
     >
         {children}
