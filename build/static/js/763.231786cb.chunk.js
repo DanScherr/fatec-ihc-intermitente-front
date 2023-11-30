@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkquatro_em_linha_frontend=self.webpackChunkquatro_em_linha_frontend||[]).push([[763],{7763:function(n,e,r){r.r(e),r.d(e,{default:function(){return u}});var t=r(184);function u(){return(0,t.jsx)(t.Fragment,{children:"PAGINA DE NOTIFICACAO"})}}}]);
-//# sourceMappingURL=763.231786cb.chunk.js.map

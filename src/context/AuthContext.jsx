@@ -38,19 +38,6 @@ export const AuthProvider = ({children}) => {
     };
 
     const [cadastro, setCadastro] = React.useState({loading: false, cadastro: false});
-    const schemaEmpresa = {
-        nomeEmpresa: "string",
-        documentoCNPJ: "string",
-        siteEmpresa: "string",
-        telefone: "string",
-        email: "string",
-        logradouro: "string",
-        numero: "string",
-        bairro: "string",
-        cidade: "string",
-        uf: "string",
-        cep: "string"
-    }
     const RealizaCadastro = async (nome, documento, email, telefone, senha, endereco) => {
         setCadastro(prev => {return {loading: true, cadastro: false}});
         console.log('Realizando cadastro')
@@ -119,6 +106,7 @@ export const AuthProvider = ({children}) => {
                 Headers()
             );
             if (response.status === 200) {
+                console.log('-------', response.data.flTipoLogin)
                 setLogin(prev => {return {loading: false, login: true}});
                 setTipo(response.data.flTipoLogin);
                 setUserId(response.data.id);
@@ -406,6 +394,7 @@ export const AuthProvider = ({children}) => {
 
     return <AuthContext.Provider
         value={{
+            tipo, setTipo,
             auth: auth,
             setAuth,
             // ValidateLogin,

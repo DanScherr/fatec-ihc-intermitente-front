@@ -5,8 +5,8 @@ import { useContext } from "react"
 import AuthContext from "../../context/AuthContext"
 
 export default function Configuracao(params) {
-    const {tipo} = useContext(AuthContext);
     const {
+        tipo,
         handleSubmit,
         setOpcao,
         handleClearForm
