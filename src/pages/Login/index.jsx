@@ -192,7 +192,7 @@ export default function Login( ) {
 
 
                 <Grid container justifyContent={'center'} alignItems={'center'} direction={'column'}
-                    sx={{position: 'fixed', bottom: 20, right: 20}}
+                    sx={{position: 'fixed', bottom: 20, right: 0}}
                 >
                     {/* BOTAO SUBMIT */}
                     <Grid item xs={3}>

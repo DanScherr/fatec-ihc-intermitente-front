@@ -14,10 +14,11 @@ export default function Cadastro( ) {
         RealizaCadastro,
         handleInputs,
         formComponents,
-        handleBlur
+        handleBlur,
+        radioButton, setRadio
     } = useContext(AuthContext);
 
-    const [ radioButton, setRadio ] = useState(true); // true = colaborador, false = empresa;
+    
 
     // LIDA COM O SUBMIT
     const [tentouCadastrar, setTentouCadastrar] = useState(false)
@@ -27,8 +28,11 @@ export default function Cadastro( ) {
         if (!formComponents.nome.error && !formComponents.email.error && !formComponents.senha.error ){
             RealizaCadastro(
                 formComponents.nome.value,
+                formComponents.documento.value,
                 formComponents.email.value,
-                formComponents.senha.value
+                formComponents.telefone.value,
+                formComponents.senha.value,
+                formComponents.endereco.value,
             );
             setTentouCadastrar(true);
         }
@@ -45,6 +49,10 @@ export default function Cadastro( ) {
     useEffect(() => {
         console.log('Radio button:', radioButton)
     }, [radioButton]);
+
+    useEffect(() => {
+        console.log(formComponents)
+    }, [formComponents])
 
     return (
         <Box

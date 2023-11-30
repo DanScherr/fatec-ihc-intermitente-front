@@ -1,13 +1,15 @@
+import { useContext } from "react"
 import NotificacaoColaborador from "./components/Colaborador"
 import NotificacaoEmpresa from "./components/Empresa"
+import AuthContext from "../../context/AuthContext";
 
 export default function Notificacao(params) {
-    let perfil = 'c';
+    const {tipo} = useContext(AuthContext);
 
     return (
         <>
             {
-                perfil === 'empresa' ?
+                tipo === 'empresa' ?
                 <NotificacaoEmpresa />
                 :
                 <NotificacaoColaborador />
