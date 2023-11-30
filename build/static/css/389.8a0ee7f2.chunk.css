@@ -1,0 +1,2 @@
+svg.blink{-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-name:blink;animation-name:blink;-webkit-animation-timing-function:linear;animation-timing-function:linear}@-webkit-keyframes blink{0%{opacity:0}50%{opacity:1}to{opacity:0}}@keyframes blink{0%{opacity:0}50%{opacity:1}to{opacity:0}}.ShareLayoutGrid{height:570px;margin-top:5px}
+/*# sourceMappingURL=389.8a0ee7f2.chunk.css.map*/
