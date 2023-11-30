@@ -136,8 +136,6 @@ export const AuthProvider = ({children}) => {
 
     const RealizaLogout = () => {
         Cookies.remove('authToken');
-        Cookies.remove('userId');
-        setLogin(prev => {return {loading: false, login: false}});
     }
 
     // CADASTRO

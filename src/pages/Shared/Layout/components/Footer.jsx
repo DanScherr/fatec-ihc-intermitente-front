@@ -1,6 +1,6 @@
 //@ts-check
 /** State */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 /** MUI */
 import { 
     BottomNavigation,
@@ -14,12 +14,21 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AuthContext from '../../../../context/AuthContext';
 
 
 export default function SharedLayoutFooter( ) {
     const [value, setValue] = useState(0);
 
     const navigate = useNavigate();
+
+    const {RealizaLogout} = useContext(AuthContext)
+
+    const handleLogout = () => {
+        RealizaLogout();
+        window.location.reload();
+    }
 
     useEffect(() => {
         navigateTo(value, navigate);
@@ -44,6 +53,9 @@ export default function SharedLayoutFooter( ) {
                     <BottomNavigationAction label="Calendário" icon={<CalendarMonthIcon />} />
                     <BottomNavigationAction label="Notificações" icon={<NotificationsActiveIcon />} />
                     <BottomNavigationAction label="Configurações" icon={<SettingsSuggestIcon />} />
+                    <Button onClick={() => handleLogout()}>
+                        <LogoutIcon />
+                    </Button>
                 </BottomNavigation>
             </Box>
         </>
