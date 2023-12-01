@@ -57,7 +57,18 @@ export default function ModalNovoProjeto( {setOpen} ) {
                 setFormComponents(prevVaules => {
                     return {
                         ...prevVaules, // atualiza apenas o item abaixo
-                        senha: {
+                        endereco: {
+                            value: e.target.value
+                        }
+                    }
+                });
+                break;
+
+            case 'input-valorHora':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        valorHora: {
                             value: e.target.value
                         }
                     }
@@ -117,6 +128,21 @@ export default function ModalNovoProjeto( {setOpen} ) {
                     </FormControl>
                 </Grid>
             </Grid>
+
+            <Grid container>
+                {/* EMAIL INPUT */}
+                <Grid item xs={12}>
+                    <FormControl fullWidth error={formComponents.endereco.error} required={true} sx={{mb: 3, pr: 5}}>
+                        <InputLabel htmlFor='input-valorHora' sx={{color: 'font.main'}}>Valor/Hora:</InputLabel>
+                        <Input
+                            onChange={handleInputs} 
+                            id="input-valorHora" 
+                            aria-describedby="input-your-valorHora"
+                        />
+                    </FormControl>
+                </Grid>
+            </Grid>
+
             <Grid item xs={12} id={'CadastroColaboradorDataNascimento'}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateField']}>

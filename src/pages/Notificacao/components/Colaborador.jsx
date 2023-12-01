@@ -119,17 +119,17 @@ const handleNotificacaoStatus = (status) => {
 }
 
 const notificacoes = [
-    {id:0, nome: 'projeto 0', empresa: 'empresa 0', status: 'aberto', valorHora: '1000', dtInicio: '12/12/2023', dtFim: '15/12/2023', qualificacoes: [
+    {id:0, nome: 'Estágio Backend', empresa: 'Microsoft', status: 'aberto', valorHora: '10', dtInicio: '25/12/2023', dtFim: '20/01/2024', qualificacoes: [
         {
             nome: 'Java',
-            value: 'alta',
-        },
-        {
-            nome: 'Python',
             value: 'baixa',
         },
         {
-            nome: 'C',
+            nome: 'Linux',
+            value: 'baixa',
+        },
+        {
+            nome: 'Cloud',
             value: 'baixa',
         },
         {

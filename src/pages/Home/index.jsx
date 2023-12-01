@@ -154,7 +154,10 @@ export default function Home(  ) {
                 >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" color={'white'} variant="h6" component="h2">
-                        Projeto:
+                        Projeto: Estágio Backend
+                    </Typography>
+                    <Typography id="modal-modal-title" color={'white'} variant="h6" component="h2">
+                        Empresa: Microsoft
                     </Typography>
                     <Typography id="modal-modal-description" color={'white'} sx={{ mt: 2 }}>
                         {selectedDay.toString()}
@@ -175,7 +178,7 @@ function ServerDay(props) {
       <Badge
         key={props.day.toString()}
         overlap="circular"
-        badgeContent={isSelected ? '🔴' : undefined}
+        badgeContent={isSelected ? '🟢' : undefined}
       >
         <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
       </Badge>
